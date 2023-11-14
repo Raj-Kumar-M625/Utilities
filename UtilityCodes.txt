@@ -1,0 +1,139 @@
+>netsh wlan show profile name=Epicminds key=Clear
+
+1.Code to take only text - 
+oninput = "this.value = this.value.replace(/[0-9!@#$%^&*()_+\\-=[\\]{};':\"\\\\|,.<>\\/?]+$/, '');"
+
+2.Code to accept only numbers - 
+@oninput = "this.value = this.value.replace(/[^0-9]/, '');"
+
+3.attribute to limit text in input - 
+"minlength" -> set minimum number of character
+"maxlength" -> set maximum number of character
+
+4.JQuery code select option based on option value - 
+  $(`#selectArea option[value='${acode}']`).prop('selected', true);
+
+5. Get the number of options in a particular select element
+$("#elementid option").length
+
+6. S.O.L.I.D Principles
+    https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898
+
+7.Remove time from datetime
+ @Convert.ToDateTime(item.dataakt).ToString("dd/MM/yyyy")
+
+8.Scrum Sheet Link
+https://docs.google.com/spreadsheets/d/1b901e1KtA3ohfLDPOFLuTBgAesZuwx-f/edit?usp=share_link&ouid=117165416859553066571&rtpof=true&sd=true 
+
+9.Democrm link
+https://democrm.gotomyday.com/
+
+10.JS code to view date in dd-mm-yyy format
+const result = new Date(params.row.estimateStartDate)
+          .toLocaleDateString("en-bz")
+          .replaceAll("/", "-");
+11. "DefaultConnection": "Server=(LocalDb)\Local;Database=UAT_ProjectOversight;Trusted_Connection=false;MultipleActiveResultSets=true"
+
+
+"DefaultConnection": "Server=3.109.70.223;Database=UAT_ProjectOversight;Trusted_Connection=false;user=csDbOwner;password=ep!cD6~o123;MultipleActiveResultSets=true"
+
+12. Round a number to 2 palces in C#
+@string.Format("{0:0.00}", incomeTotal)
+
+5.Xamarin pdf downloading code  public async void DownloadReports()
+        {
+            await DownloadApkAsync();
+            Toast.MakeText(Android.App.Application.Context, "File Saved Successfully!", ToastLength.Long).Show();
+        }
+
+        private async Task DownloadApkAsync()
+        {
+            var downloadedFilePath = System.IO.Path.Combine("/storage/emulated/0/Download/", "AgreementReport.pdf");
+
+            var success = await DownloadFileAsync("https://www.pdfdrive.com/download.pdf?id=136494023&h=1aa480a89378f61c111d68cdd8632b97&u=cache&ext=pdf", downloadedFilePath);
+
+            if (success)
+            {
+
+                System.Console.WriteLine($"File downloaded to: {downloadedFilePath}");
+            }
+            else
+            {
+                System.Console.WriteLine("Download failed");
+            }
+        }
+
+
+        private async Task<bool> DownloadFileAsync(string fileUrl, string downloadedFilePath)
+        {
+            try
+            {
+                var client = new HttpClient();
+                // var uri = new UriBuilder(fileUrl).Uri;
+                // WebClient webClient = new WebClient();
+
+                // ServicePointManager.ServerCertificateValidationCallback = new
+                // RemoteCertificateValidationCallback
+                //(
+                // delegate { return true; }
+                //);
+                // webClient.DownloadFile(fileUrl, downloadedFilePath);
+                var downloadStream = await client.GetStreamAsync(fileUrl);
+
+                var fileStream = System.IO.File.Create(downloadedFilePath);
+
+                await downloadStream.CopyToAsync(fileStream);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //TODO handle exception
+                return false;
+            }
+        }
+
+//"DefaultConnection": "Data Source=.;Initial Catalog=Dev_PO;user id=manoj;password=Welcome@1;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+    //"DefaultConnection": "Server=13.234.57.114;Database=Dev_POS;Trusted_Connection=false;user=csDbOwner;password=ep!cD6~o;MultipleActiveResultSets=true"
+    //"DefaultConnection": "Server=3.109.70.223;Database=UAT_ProjectOversight;Trusted_Connection=false;user=POSEpic;password=fRaDr41Om1JQ39;MultipleActiveResultSets=true"
+    "DefaultConnection": "Server=(LocalDb)\\Local;Database=Dev_POS;Trusted_Connection=false;MultipleActiveResultSets=true"
+  
+  
+
+
+=> Code To Get Objects from Amazon S3 Bucket   
+  
+using (var amazonS3Client = new AmazonS3Client("", ""))
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        var transferUtility = new TransferUtility(amazonS3Client);
+                       var response = await transferUtility.S3Client.GetObjectAsync(new GetObjectRequest()
+                       {
+                            BucketName = "djcn",
+                            Key = "dfdhj"
+                       });
+                        return File(response.ResponseStream, response.Headers.ContentType, "");
+
+                    }
+                };
+
+
+=> Code To Push files to Amazon S3 Bucket
+
+                using (var amazonS3Client = new AmazonS3Client("", ""))
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        document.File.CopyTo(memoryStream);
+                        var request = new TransferUtilityUploadRequest
+                        {
+                            InputStream = memoryStream,
+                            Key = document.File.FileName,
+                            BucketName = "",
+                            ContentType = document.File.ContentType
+                        };
+                        var transferUtility = new TransferUtility(amazonS3Client);
+                        await transferUtility.UploadAsync(request);
+                    }
+                };
